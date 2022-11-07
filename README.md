@@ -55,3 +55,20 @@ addEvent (eventType, selector, callback) {
   })
 }
 ```
+
+### 2. 컴포넌트 분할하기
+컴포넌트는 기본적으로 '재활용'이 목적이다. 따라서 하나의 컴포넌트가 최대한 작은 일을 수행하도록 만드는 것이 중요하다.
+```shell
+.
+├── index.html
+└── src
+    ├── App.js               # main에서 App 컴포넌트를 마운트한다.
+    ├── main.js              # js의 entry 포인트
+    ├── components
+    │   ├── ItemAppender.js
+    │   ├── ItemFilter.js
+    │   └── Items.js
+    └── core
+        └── Component.js
+```
+폴더 구조를 위와 같이 변경하였다. 기존의 entry point가 app.js에서 main.js가 되었다. 이렇게 바꾼 이유를 생각해보면 App 컴포넌트를 마운트하는 것은 main.js에서 해야하는 일이다. 그리고 App 컴포넌트는 ItemAppender, ItemFilter, Items 컴포넌트를 포함하고 있다. 따라서 App 컴포넌트를 마운트하기 위해서는 ItemAppender, ItemFilter, Items 컴포넌트가 먼저 마운트되어야 한다. 이러한 순서를 보장하기 위해 main.js에서 App 컴포넌트를 마운트하도록 하였다.
