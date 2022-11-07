@@ -1,16 +1,20 @@
 export default class Component {
   $target;
+  $props;
   $state;
-  constructor ($target) {
+  constructor($target, $props) {
     this.$target = $target;
+    this.$props = $props; // $props 할당. 부모 컴포넌트가 자식 컴포넌트에게 상태 혹은 메소드를 넘겨주기 위해서.
     this.setup();
     this.setEvent(); // constructor에서 한 번만 실행된다.
     this.render();
   }
   setup () {};
+  mounted () {}; // render 이후에 추가적인 기능을 수행하기 위해서.
   template () { return ''; }
   render () {
     this.$target.innerHTML = this.template();
+    this.mounted(); // render 후에 mounted 가 실행된다.
   }
   setEvent () {}
   setState (newState) {
